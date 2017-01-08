@@ -1,0 +1,30 @@
+{
+  "name": "progressivewebapp",
+  "version": "0.0.1",
+  "description": "This is POC Demo for Progressive Web App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Progressive",
+    "Web",
+    "App",
+    "PWA",
+    "Service",
+    "Worker",
+    "App",
+    "Cache",
+    "Index",
+    "DB"
+  ],
+  "author": "Sachin Singh",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "multer": "^1.2.1"
+  }
+}
