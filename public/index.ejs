@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Progressive Web App Demo</title>
+        <style>
+            body {
+                font-family: "Tahoma", "Geneva", sans-serif;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 32px;
+                text-align: center;
+            }
+
+            .targets {
+                font-size: 16px;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 4px;
+            }
+
+            .main-target {
+                background-color: #cacaca;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>This is a demo page for Progressive Web App</h1>
+        <p id="target" class="targets main-target">Results are shown here</p>
+        <p id="target2" class="targets"></p>
+        <script>console.clear();</script>
+        <script src="static/js/xhr.js"></script>
+        <!--<script src="static/js/callback.js"></script>-->
+        <!--<script src="static/js/promises.js"></script>-->
+        <!--<script src="static/js/xhr.callback.js"></script>-->
+        <!--<script src="static/js/xhr.promise.js"></script>-->
+        <script src="static/js/xhr.promise.complex.js"></script>
+    </body>
+</html>
