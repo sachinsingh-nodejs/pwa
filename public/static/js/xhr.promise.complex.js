@@ -26,8 +26,10 @@
         console.log(reason);
     }
     
-    XHR.request("GET", "/fetchtestdata")
-    .then(handleFirstResponse)
-    .then(handleSecondResponse)
-    .catch(handleErrors);
+    document.querySelector("#xhrpromisecomplex").addEventListener("click", function () {
+        XHR.request("GET", "/fetchtestdata")
+        .then(handleFirstResponse)
+        .then(handleSecondResponse)
+        .catch(handleErrors);
+    });
 })();

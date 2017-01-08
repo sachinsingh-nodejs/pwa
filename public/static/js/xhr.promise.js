@@ -6,13 +6,15 @@
         return;
     }
     var target = document.querySelector("#target");
-    XHR.request("GET", "/fetchtestdata")
-    .then(function (data, a, b) {
-        // debugger;
-        if (typeof data === "object") {
-            target.innerHTML = JSON.stringify(data, null, 3);
-        } else {
-            target.innerHTML = data;
-        };
+    document.querySelector("#xhrpromise").addEventListener("click", function () {
+        XHR.request("GET", "/fetchtestdata")
+        .then(function (data, a, b) {
+            // debugger;
+            if (typeof data === "object") {
+                target.innerHTML = JSON.stringify(data, null, 3);
+            } else {
+                target.innerHTML = data;
+            };
+        });
     });
 })();
