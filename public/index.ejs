@@ -77,14 +77,26 @@
             var i = 0;
             for (; i < allBtns.length; i++) {
                 allBtns[i].addEventListener("click", function () {
-                    resetBtn.dispatchEvent(new Event("click"));
+                    resetBtn.dispatchEvent(new CustomEvent("click", {
+                        detail: "prog"
+                    }));
                 });
             }
 
-            resetBtn.addEventListener("click", function () {
+            resetBtn.addEventListener("click", function (event) {
                 console.clear();
                 document.querySelector("#target").innerHTML = "Results are shown here";
                 document.querySelector("#target2").innerHTML = "";
+                var swFlag = sessionStorage.getItem("swFlag");
+                if (swFlag === "true" && event.detail !== "prog") {
+                    sessionStorage.setItem("swFlag", "false");
+                    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                        for (var i = 0; i < registrations.length; i++) {
+                            registrations[i].unregister();
+                        }
+                        window.location.reload();
+                    });
+                }
             });
         </script>
         <script src="static/js/xhr.js"></script>
