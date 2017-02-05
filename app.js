@@ -1,5 +1,6 @@
 let express = require("express"),
     request = require("request"),
+    open = require("open");
     app = express(),
     path = require("path");
 
@@ -107,3 +108,5 @@ app.get("/playlistvideos/:playlistid", function (req, res) {
 app.listen(8080, function () {
     console.log("Listening on PORT 8080 ...");
 });
+
+open("http://localhost:8080");

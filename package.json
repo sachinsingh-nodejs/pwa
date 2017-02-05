@@ -4,7 +4,7 @@
   "description": "This is POC Demo for Progressive Web App",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app"
   },
   "keywords": [
     "Progressive",
@@ -26,6 +26,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "multer": "^1.2.1",
+    "open": "0.0.5",
     "request": "^2.79.0"
   }
 }
