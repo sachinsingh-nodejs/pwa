@@ -1,7 +1,9 @@
 let express = require("express"),
+    request = require("request"),
     app = express(),
     path = require("path");
 
+const API_KEY = "AIzaSyCoUWBxmffAOjBguIXJOV8FN4rF0NQwoik";
 
 app.set("views", path.join(__dirname, "/public"));
 app.set("view engine", "ejs");
@@ -13,39 +15,94 @@ app.get("/", function (request, response) {
    response.render("index"); 
 });
 
-app.get("/fetchtestdata", function (request, response) {
-    setTimeout(function () {
-        response.status(200);
-        response.json({
-            testdata: {
-                sampleArray: ["Name", "Address", "Phonebook"],
-                sampleValues: [1,2,3,4],
-                name: "Pete",
-                Address: "43 Fulton Street, New York, NY - 10038",
-                Phonebook: [
-                    32389389332,
-                    4343983494,
-                    44399874439
-                ]
+app.get("/channelplaylists", function (req, res) {
+    request({
+        uri: "https://www.googleapis.com/youtube/v3/channels",
+        qs: {
+            key: API_KEY,
+            part: "id, snippet",
+            id: "UCEgdi0XIXXZ-qJOFPf4JSKw"
+        }
+    }, function (err, res2, body) {
+        if (!err & res2.statusCode === 200) {
+            try {
+                let parsedJson = JSON.parse(body);
+                let responseData = {};
+                responseData.title = parsedJson.items[0].snippet.title;
+                responseData.id = parsedJson.items[0].id;
+                // res.json(responseData);
+                request({
+                    uri: "https://www.googleapis.com/youtube/v3/playlists",
+                    qs: {
+                        key: API_KEY,
+                        channelId: responseData.id,
+                        part: "id, contentDetails, player"
+                    }
+                }, function (err, res3, data) {
+                    if (!err && res3.statusCode === 200) {
+                        try {
+                            let parsedJson = JSON.parse(data);
+                            responseData.playlist = [];
+                            parsedJson.items.forEach(function (item) {
+                                responseData.playlist.push({
+                                    id: item.id,
+                                    count: item.contentDetails.itemCount,
+                                    player: item.player.embedHtml
+                                });
+                            });
+                            res.json(responseData);
+                        } catch (e) {
+                            res.status(500);
+                            res.json("Some error occurred while parsing data from youtube API");            
+                        }
+                    } else {
+                        res.status(res3.errorCode);
+                        res.json(err);
+                    }
+                });
+            } catch (e) {
+                res.status(500);
+                res.json("Some error occurred while parsing data from youtube API");
             }
-        });
-    }, 1000);
+        } else {
+            res.status(res2.errorCode);
+            res.json(err);
+        }
+    });
 });
 
-app.get("/userphonebook", function (request, response) {
-    if (request.query.name.toLowerCase() === "pete") {
-        setTimeout(function () {
-            response.status(200);
-            response.json({
-                Phonebook: [
-                    32389389332,
-                    4343983494,
-                    44399874439
-                ]
-            });
-        }, 1000);
-    }
-});
+app.get("/playlistvideos/:playlistid", function (req, res) {
+    request({
+        uri: "https://www.googleapis.com/youtube/v3/playlistItems",
+        qs: {
+            key: API_KEY,
+            part: "id, contentDetails, snippet",
+            playlistId: req.params.playlistid
+        }
+    }, function (err, res2, body) {
+        if (!err && res2.statusCode === 200) {
+            try {
+                let parsedJson = JSON.parse(body);
+                let videos = [];
+                parsedJson.items.forEach(function (dataItem) {
+                    videos.push({
+                        title: dataItem.snippet.title,
+                        desc: dataItem.snippet.description,
+                        thumbnail: dataItem.snippet.thumbnails.high,
+                        videoId: dataItem.snippet.resourceId.videoId
+                    });
+                });
+                res.json(videos);
+            } catch (e) {
+                res.status(500);
+                res.json("Some error occurred while parsing data from youtube API");
+            }
+        } else {
+            res.status(res2.errorCode);
+            res.json(err);
+        }
+    });
+})
 
 app.listen(8080, function () {
     console.log("Listening on PORT 8080 ...");

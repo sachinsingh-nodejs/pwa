@@ -2,110 +2,28 @@
 <html>
     <head>
         <title>Progressive Web App Demo</title>
-        <style>
-            body {
-                font-family: "Tahoma", "Geneva", sans-serif;
-                font-size: 14px;
-            }
-
-            h1 {
-                font-size: 32px;
-                text-align: center;
-            }
-
-            .targets {
-                font-size: 16px;
-                border-radius: 4px;
-            }
-
-            .main-target {
-                background-color: #cacaca;
-            }
-
-            .targets, .btn-group {
-                margin: 20px;
-                padding: 20px;
-            }
-
-            .btn {
-                font-size: 16px;
-                border: 0;
-                background-color: #3c9955;
-                margin: 10px;
-                padding: 6px;
-                color: #fff;
-                float: left;
-                border-radius: 3px;
-                transition: box-shadow 0.3s ease-in;
-                cursor: pointer;
-            }
-
-            .btn:hover {
-                box-shadow: 0 2px 3px 2px #ccc;
-            }
-
-            .reset-btn {
-                color: #000;
-                background-color: #ccc;
-            }
-
-            .clearfix::after, .clearfix::before {
-                clear:both;
-                content: "";
-                display: table;
-            }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/css/app.css" />
     </head>
     <body>
-        <h1>This is a demo page for Progressive Web App</h1>
-        <p id="target" class="targets main-target">Results are shown here</p>
-        <p id="target2" class="targets"></p>
-        <div class="btn-group clearfix">
-            <button class="btn" id="callback">Run Callback Example</button>
-            <button class="btn" id="promises">Run Promise Example</button>
-            <button class="btn" id="xhrcallback">Run XHR Callback Example</button>
-            <button class="btn" id="xhrpromise">Run XHR Promise Example</button>
-            <button class="btn" id="xhrpromisecomplex">Run: Chaining Promises</button>
-            <button class="btn" id="xhrpromiseall">Run Promise.all example</button>
-            <button class="btn" id="removedownasaur">Remove the downasaur</button>
-            <button class="btn reset-btn" id="reset">Reset</button>
-        </div>
-        <script>
-            console.clear();
-            var resetBtn = document.querySelector(".reset-btn");
-            var allBtns = document.querySelectorAll(".btn");
-            var i = 0;
-            for (; i < allBtns.length; i++) {
-                allBtns[i].addEventListener("click", function () {
-                    resetBtn.dispatchEvent(new CustomEvent("click", {
-                        detail: "prog"
-                    }));
-                });
-            }
+        <!-- Header -->
+        <% include ./appshell/header %>
 
-            resetBtn.addEventListener("click", function (event) {
-                console.clear();
-                document.querySelector("#target").innerHTML = "Results are shown here";
-                document.querySelector("#target2").innerHTML = "";
-                var swFlag = sessionStorage.getItem("swFlag");
-                if (swFlag === "true" && event.detail !== "prog") {
-                    sessionStorage.setItem("swFlag", "false");
-                    navigator.serviceWorker.getRegistrations().then(function (registrations) {
-                        for (var i = 0; i < registrations.length; i++) {
-                            registrations[i].unregister();
-                        }
-                        window.location.reload();
-                    });
-                }
-            });
-        </script>
-        <script src="static/js/xhr.js"></script>
-        <script src="static/js/callback.js"></script>
-        <script src="static/js/promises.js"></script>
-        <script src="static/js/xhr.callback.js"></script>
-        <script src="static/js/xhr.promise.js"></script>
-        <script src="static/js/xhr.promise.complex.js"></script>
-        <script src="static/js/promise.all.js"></script>
-        <script src="static/js/serviceworker.demo.js"></script>
+        <!-- Main content -->
+        <% include ./appshell/content %>
+
+        <!-- Footer -->
+        <% include ./appshell/footer %>
+
+        <div class="loader-shell">
+            <div class="spinner-icon">
+                <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </div>
+        </div>
+        <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/static/js/app.js"></script>
     </body>
 </html>

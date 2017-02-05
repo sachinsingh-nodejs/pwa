@@ -1,0 +1,180 @@
+body {
+    background-color: #eee;
+}
+
+h1 {
+    margin: 0;
+    font-size: 18px;
+}
+
+header {
+    padding: 20px 10px;
+    background-color: #6f6f6f;
+    color: #fff;
+    box-shadow: 3px 0px 7px 0px #6f6f6f;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 20px 10px;
+    text-align: center;
+    color: #fff;
+    background-color: #6f6f6f;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+footer a, footer a:hover, footer a:visited, footer a:focus {
+    text-decoration: none;
+    color: #000;
+}
+
+.cl-visible {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+    transition: opacity 0s linear;
+}
+
+.cl-hidden {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    transition: visibility 0s 0.4s, z-index 0s 0.4s, opacity 0.4s linear;
+}
+
+.container {
+    margin: 85px 0 100px;
+}
+
+.playlist-title {
+    padding: 0px 20px 20px;
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.playlist-article .video {
+    background-color: #fff;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 1px 0px 7px -3px #6d6d6d;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.video-thumb {
+    float: left;
+    width: 40%;
+    padding: 10px;
+}
+
+.video-desc {
+    width: 60%;
+    float: left;
+    padding: 10px 10px 10px 0;
+    overflow: hidden;
+}
+
+.video-thumb img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+.video-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.video-description {
+    height: 30px;
+}
+
+.loader-shell {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    z-index: 1;
+}
+
+.spinner-icon {
+    display: inline-block;
+    width: 86px;
+    height: 86px;
+    padding: 10px;
+    border-radius: 86px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.spinner {
+  animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}

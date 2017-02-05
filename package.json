@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "multer": "^1.2.1"
+    "multer": "^1.2.1",
+    "request": "^2.79.0"
   }
 }

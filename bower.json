@@ -1,0 +1,34 @@
+{
+  "name": "progressivewebapp",
+  "description": "This is POC Demo for Progressive Web App",
+  "main": "app.js",
+  "authors": [
+    "Sachin Singh"
+  ],
+  "license": "UNLICENSED",
+  "keywords": [
+    "Progressive",
+    "Web",
+    "App",
+    "PWA",
+    "Service",
+    "Worker",
+    "App",
+    "Cache",
+    "Index",
+    "DB"
+  ],
+  "homepage": "https://github.com/sachinsingh-nodejs/pwa",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}
