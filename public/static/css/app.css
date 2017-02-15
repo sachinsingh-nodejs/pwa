@@ -178,3 +178,72 @@ footer a, footer a:hover, footer a:visited, footer a:focus {
     transform: rotate(450deg);
   }
 }
+
+.ytPlayer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.ytVideo {
+    width: 100%;
+    height: 35%;
+    background-color: lightyellow;
+}
+
+.ytDescriptionSection {
+    padding: 20px;
+    overflow: auto;
+    height: 65%;
+}
+
+.ytTitle {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.ytDescription {
+    font-size: 16px;
+}
+
+.ytVideoLoader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background-color: #000;
+    z-index: 1;
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+  border: 5px solid #9d9d9d;
+  border-radius: 50%;
+  border-top: 5px solid #fff;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

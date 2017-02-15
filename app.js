@@ -1,7 +1,7 @@
 let express = require("express"),
     request = require("request"),
     open = require("open");
-    app = express(),
+app = express(),
     path = require("path");
 
 const API_KEY = "AIzaSyCoUWBxmffAOjBguIXJOV8FN4rF0NQwoik";
@@ -13,7 +13,7 @@ app.use(express.static(__dirname + "/public"));
 app.use("/lib", express.static(__dirname + "/bower_components"));
 
 app.get("/", function (request, response) {
-   response.render("index"); 
+    response.render("index");
 });
 
 app.get("/channelplaylists", function (req, res) {
@@ -54,7 +54,7 @@ app.get("/channelplaylists", function (req, res) {
                             res.json(responseData);
                         } catch (e) {
                             res.status(500);
-                            res.json("Some error occurred while parsing data from youtube API");            
+                            res.json("Some error occurred while parsing data from youtube API");
                         }
                     } else {
                         res.status(res3.errorCode);
@@ -89,7 +89,7 @@ app.get("/playlistvideos/:playlistid", function (req, res) {
                     videos.push({
                         title: dataItem.snippet.title,
                         desc: dataItem.snippet.description,
-                        thumbnail: dataItem.snippet.thumbnails.high,
+                        thumbnail: dataItem.snippet.thumbnails && dataItem.snippet.thumbnails.high,
                         videoId: dataItem.snippet.resourceId.videoId
                     });
                 });
