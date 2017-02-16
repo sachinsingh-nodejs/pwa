@@ -55,11 +55,15 @@
             }
         },
         playVideo(video) {
-            if (video.isPlayable) {
+            if (navigator.onLine && video.isPlayable) {
                 $(".ytPlayer").addClass("launched");
                 app.youtubePlayer.loadVideoById(video.videoId, 0, "large");
             } else {
-                $(".toast").text("Cannot play video!").addClass("show");
+                if (!navigator.onLine) {
+                    $(".toast").text("Cannot play video in offline mode!").addClass("show");
+                } else {
+                    $(".toast").text("Cannot play video!").addClass("show");
+                }
                 setTimeout(function () {
                     $(".toast").removeClass("show");
                 }, 3000);
@@ -77,7 +81,18 @@
         },
         init() {
             console.debug("App initialized");
-            // Get playlist data
+            $(window).on("offline", function () {
+                $(".toast").text("You're offline!").addClass("show");
+                setTimeout(function () {
+                    $(".toast").removeClass("show");
+                }, 3000);
+            });
+            $(window).on("online", function () {
+                $(".toast").text("You're back online!").addClass("show");
+                setTimeout(function () {
+                    $(".toast").removeClass("show");
+                }, 3000);
+            });
             $(".loader-shell").addClass("cl-visible").removeClass("cl-hidden");
             let self = this;
             $(document).on("renderComplete", function () {
@@ -124,6 +139,11 @@
     $(() => {
         app.init();
     });
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./service-worker.js").then(function () {
+            console.log("Service Worker registered");
+        });
+    }
 }(
     window,
     window.jQuery
