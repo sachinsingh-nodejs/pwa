@@ -191,6 +191,12 @@ footer a, footer a:hover, footer a:visited, footer a:focus {
     opacity: 0;
 }
 
+.ytPlayer.launched {
+    visibility: visible;
+    opacity: 1;
+    z-index: 2;
+}
+
 .ytVideo {
     width: 100%;
     height: 35%;
@@ -229,13 +235,13 @@ footer a, footer a:hover, footer a:visited, footer a:focus {
     bottom: 0;
     right: 0;
     margin: auto;
-  border: 5px solid #9d9d9d;
-  border-radius: 50%;
-  border-top: 5px solid #fff;
-  width: 30px;
-  height: 30px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+    border: 5px solid #9d9d9d;
+    border-radius: 50%;
+    border-top: 5px solid #fff;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
 }
 
 @-webkit-keyframes spin {
@@ -246,4 +252,65 @@ footer a, footer a:hover, footer a:visited, footer a:focus {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.toast {
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    bottom: 120px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+    width: 300px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 25px;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: background-color 0.7s, transform 0.3s, visibility 0s linear 0.7s, z-index 0s linear 0.7s;
+}
+
+.show {
+    visibility: visible;
+    transform: translateY(0);
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+    transition-delay: 0s, 0s, 0s, 0s;
+}
+
+.ytPlayerDismiss {
+    position: absolute;
+    font-size: 24px;
+    top: 0;
+    left: 0;
+    color: #fff;
+    z-index: 200;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.ytPlayerDismiss::before {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.highlight {
+    display: table;
+}
+
+.highlight::after {
+    content: "Not available";
+    display: table-cell;
+    width: 100%;
+    height: 61px;
+    background-color: #999;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
 }

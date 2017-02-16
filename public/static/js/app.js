@@ -3,10 +3,11 @@
         renderVideos(videos) {
             return videos.map((video) => {
                 video.thumbnail = video.thumbnail || { url: "" };
+                video.isPlayable = !!video.thumbnail.url;
                 return (`
-                <div class="video clearfix">
-                    <div class="video-thumb">
-                        <img src="${video.thumbnail.url}" alt="${video.title}" />
+                <div class="video clearfix" data-video-id="${video.videoId}" data-is-playable="${video.isPlayable}">
+                    <div class="video-thumb ${video.isPlayable ? '' : 'highlight'}">
+                        <img src="${video.thumbnail.url}" alt="${video.title}" class="${video.isPlayable ? '' : 'hidden'}" />
                     </div>
                     <div class="video-desc">
                         <div class="video-title">${video.title}</div>
@@ -43,9 +44,27 @@
                     });
             });
         },
-        onPlayerReady() { console.log("Player is ready"); },
-        onPlayerStateChange() { },
-        playVideo() { },
+        onPlayerReady(event) {
+            console.log("Player is ready");
+            app.youtubePlayer = event.target;
+            console.log(app.youtubePlayer);
+        },
+        onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                $(".ytVideoLoader").hide();
+            }
+        },
+        playVideo(video) {
+            if (video.isPlayable) {
+                $(".ytPlayer").addClass("launched");
+                app.youtubePlayer.loadVideoById(video.videoId, 0, "large");
+            } else {
+                $(".toast").text("Cannot play video!").addClass("show");
+                setTimeout(function () {
+                    $(".toast").removeClass("show");
+                }, 3000);
+            }
+        },
         initVideo() {
             this.player = new YT.Player('ytVideo', {
                 height: $(".ytVideo").outerWidth(),
@@ -68,7 +87,12 @@
                 $(".video").off().on("click", function () {
                     $(".ytTitle").text($(this).find(".video-title").text());
                     $(".ytDescription").text($(this).find(".video-description").text());
-                    self.playVideo();
+                    self.playVideo($(this).data());
+                });
+                $(".ytPlayerDismiss").on("click", function () {
+                    app.youtubePlayer.stopVideo();
+                    $(".ytPlayer").removeClass("launched");
+                    $(".ytVideoLoader").show();
                 });
                 if (ytApiReady) self.initVideo();
                 else {

@@ -1,7 +1,7 @@
 let express = require("express"),
     request = require("request"),
-    open = require("open");
-app = express(),
+    open = require("open"),
+    app = express(),
     path = require("path");
 
 const API_KEY = "AIzaSyCoUWBxmffAOjBguIXJOV8FN4rF0NQwoik";
